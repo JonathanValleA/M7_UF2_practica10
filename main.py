@@ -20,7 +20,12 @@ def grafica_barras1(data, nombre_eje_x):
     plt.xlabel("Clock Speed")
     plt.ylabel("Count")
     plt.bar(lista, nombre_eje_x, color=colores)
-    plt.legend(id_a_filtrar)
+    # Asigno los valores de id_a_filtrar a cada posicion de la lista
+    plt.xticks(lista, id_a_filtrar)
+    # Guardo todos los valores de clock_speed
+    legend_list = clock_speed_data.values
+    # Muestro en la legenda, los valores 2.8, 1.4 que hace referencia al clock_speed
+    plt.legend(legend_list)
     plt.show()
 
 # 2n Funcion para mostrar la grafica 2 de Mega Pixels
@@ -29,7 +34,12 @@ def grafica_barras2(data, nombre_eje_y):
     plt.xlabel("Mega Pixels")
     plt.ylabel("Count")
     plt.bar(lista, nombre_eje_y, color=colores)
-    plt.legend(id_a_filtrar)
+    # Asigno los valores de id_a_filtrar a cada posicion de la lista
+    plt.xticks(lista, id_a_filtrar)
+    # Guardo todos los valores de clock_speed
+    legend_list = megapixels_data.values
+    # Muestro en la legenda, los valores 2.8, 1.4 que hace referencia al clock_speed
+    plt.legend(legend_list)
     plt.show()
 
 # 3n Funcion para mostrar la grafica 3 de Battery Power
@@ -37,7 +47,12 @@ def grafica_barras3(data, nombre_eje_z):
     plt.xlabel("Battery Power")
     plt.ylabel("Count")
     plt.bar(lista, nombre_eje_z, color=colores)
-    plt.legend(id_a_filtrar)
+    # Asigno los valores de id_a_filtrar a cada posicion de la lista
+    plt.xticks(lista, id_a_filtrar)
+    # Guardo todos los valores de clock_speed
+    legend_list = battery_power_data.values
+    # Muestro en la legenda, los valores 2.8, 1.4 que hace referencia al clock_speed
+    plt.legend(legend_list)
     plt.show()
 
 # Funcion Principal para el menu de opciones y para llamar a mis 3 funciones
