@@ -10,29 +10,34 @@ megapixels_data = ejercicio3.mostrar_mega_pixels(id_a_filtrar)
 battery_power_data = ejercicio3.mostrar_battery_power(id_a_filtrar)
 
 ## Definir los colores de la grafica Generica
-colores = ['red','blue','green','orange','pink','lightblue','yellow']
+colores = ['red','blue','green','orange','pink','lightblue','yellow','purple','brown','gray']
 ## Definir el tamaño de mi grafica de 8x5 Generica
 fig, ax = plt.subplots(figsize= (8,5))
-
+## La Posicion del arreglo id_a_filtrar
+lista = [0,1,2,3,4,5,6,7,8,9]
 # 1r Funcion para mostrar la grafica 1 de Clock_speed
 def grafica_barras1(data, nombre_eje_x):
     plt.xlabel("Clock Speed")
     plt.ylabel("Count")
-    plt.bar(data, nombre_eje_x, color=colores)
+    plt.bar(lista, nombre_eje_x, color=colores)
+    plt.legend(id_a_filtrar)
     plt.show()
 
 # 2n Funcion para mostrar la grafica 2 de Mega Pixels
 def grafica_barras2(data, nombre_eje_y):
+
     plt.xlabel("Mega Pixels")
     plt.ylabel("Count")
-    plt.bar(data, nombre_eje_y, color=colores)
+    plt.bar(lista, nombre_eje_y, color=colores)
+    plt.legend(id_a_filtrar)
     plt.show()
 
 # 3n Funcion para mostrar la grafica 3 de Battery Power
 def grafica_barras3(data, nombre_eje_z):
     plt.xlabel("Battery Power")
     plt.ylabel("Count")
-    plt.bar(data, nombre_eje_z, color=colores)
+    plt.bar(lista, nombre_eje_z, color=colores)
+    plt.legend(id_a_filtrar)
     plt.show()
 
 # Funcion Principal para el menu de opciones y para llamar a mis 3 funciones
