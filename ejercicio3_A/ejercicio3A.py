@@ -1,22 +1,26 @@
 import pandas as pd
 
+def casos_totales_pais(df):
+    df_grouped = df.groupby(["location", "date"]).sum().reset_index()
+    df_grouped = df_grouped[["location", "date"]]
+    df_grouped['location'].fillna(0, inplace=True)
+    df_grouped['location'] = df_grouped['location'].astype(str).str.replace(',', '').astype(float)
 
-def load_data(filepath):
-    data = pd.read_csv(filepath)
-    data['date'] = pd.to_datetime(data['date'])
-    return data
+    top_10_countries = df_grouped.nlargest(10, 'location')
+    df_grouped = df_grouped[df_grouped["location"].isin(top_10_countries)]
+    return df_grouped
 
-def total_cases_per_month_per_country(data):
-    data_grouped = data.groupby(['location']).sum(numeric_only=True)
-    top_10_countries = data_grouped.nlargest(10, 'total_cases')
-    data = data.query('location in @top_10_countries')
-    data = data.groupby(['location', data['date'].dt.month])['total_cases'].sum().reset_index()
-    return data
+def muertes_totales_pais(df):
+    df_grouped = df.groupby(["location", "date"]).sum().reset_index()
+    df_grouped = df_grouped[["location", "date", "total_deaths"]]
+    top_10_countries = df_grouped["location"].value_counts().index[:10]
+    df_grouped = df_grouped[df_grouped["location"].isin(top_10_countries)]
+    return df_grouped
 
-def total_deaths_per_month_per_country(data):
-    df = data.groupby(['location', data['date'].dt.month])['total_deaths'].sum().reset_index()
-    return df
-
-def reproduction_rate_per_month_per_country(data):
-    df = data.groupby(['location', data['date'].dt.month])['reproduction_rate'].mean().reset_index()
-    return df
+def reproduction_rate_pais(df):
+    df_grouped = df.groupby(["location", "date"]).sum().reset_index()
+    df_grouped["reproduction_rate"] = df_grouped["Confirmed"] / df_grouped["total_deaths"]
+    df_grouped = df_grouped[["location", "date", "reproduction_rate"]]
+    top_10_countries = df_grouped["location"].value_counts().index[:10]
+    df_grouped = df_grouped[df_grouped["location"].isin(top_10_countries)]
+    return df_grouped
