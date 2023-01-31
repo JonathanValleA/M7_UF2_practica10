@@ -1,18 +1,20 @@
+import ejercicio3A
 import matplotlib.pyplot as plt
-from ejercicio3A import load_data, total_cases_per_month_per_country, total_deaths_per_month_per_country, reproduction_rate_per_month_per_country
-if __name__ == '__main__':
-    data = load_data('df_covid19_countries.csv')
-    df_cases = total_cases_per_month_per_country(data)
-    df_deaths = total_deaths_per_month_per_country(data)
-    df_rr = reproduction_rate_per_month_per_country(data)
+import pandas as pd
+def grafica():
+    df = pd.read_csv("df_covid19_countries.csv", sep=",")
+    df["total_deaths"] = df["date"].apply(lambda x: x[:7])
 
-    top_10_countries = total_cases_per_month_per_country(data)
+    casos_totales = ejercicio3A.casos_totales_pais(df)
 
-    plt.figure(figsize=(13, 7))
-    plt.title('Total cases per month per country')
-    for country in top_10_countries['location'].unique():
-        plt.plot(top_10_countries.loc[top_10_countries['location'] == country, 'month'],
-                 top_10_countries.loc[top_10_countries['location'] == country, 'total_cases'],
-                 label=country)
+    plt.figure(figsize=(10, 5))
+    plt.title("Casos totales por país y mes")
+    for country in casos_totales["location"].unique():
+        country_data = casos_totales[casos_totales["location"] == country]
+        plt.plot(country_data["location"], country_data["total_cases"], label=country)
     plt.legend()
     plt.show()
+
+df = pd.read_csv("df_covid19_countries.csv", sep=",")
+casos = ejercicio3A.casos_totales_pais(df)
+print(casos)
